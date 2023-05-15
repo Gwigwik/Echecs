@@ -35,7 +35,7 @@ import com.pieces.Tour_Noir;
 public class Scene extends JPanel implements MouseListener, ActionListener {
 	
 	private int posSourisX, posSourisY;
-	private boolean sourisPressée;
+	private boolean sourisPressee;
 	
 	private int rotation = 0;
 	private boolean rotaAuto =  false;
@@ -71,11 +71,11 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 	private boolean transfoPion; //permet de bloquer le jeu quand le pion doit se transformer
 	private int xTransfo, yTransfo;
 	
-	private int placePieceDéplacée = -1; //garde en memoire la piece qui va etre déplacée potentiellement
+	private int placePieceDeplacee = -1; //garde en memoire la piece qui va etre dï¿½placï¿½e potentiellement
 	
-	private boolean pieceDéplacée = false; //eviter de ravoir les points après avoir déplacé une pièce
+	private boolean pieceDeplacee = false; //eviter de ravoir les points aprï¿½s avoir dï¿½placï¿½ une piï¿½ce
 	
-	private int nbCoups = 0; //compte le nombre de coups joués et permet de vérifier si le roque est réalisable
+	private int nbCoups = 0; //compte le nombre de coups jouï¿½s et permet de vï¿½rifier si le roque est rï¿½alisable
 	
 	private ImageIcon icoEchiquier;
 	private Image imgEchiquier;
@@ -306,7 +306,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 		
 		messageAfficherCoups = new JLabel();
 		messageAfficherCoups.setBounds(835, 741, 200, 16);
-		messageAfficherCoups.setText("Afficher les coups légaux");
+		messageAfficherCoups.setText("Afficher les coups lï¿½gaux");
 		this.add(messageAfficherCoups); 
 		
 		setLayout(null);
@@ -323,12 +323,12 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 		g2.drawImage(imgEchiquier, 0, 0, null);
 		
 		if ((rotation%2 == 0 && rotaAuto) || (!rotaAuto && rotaArreteeSurBlanc)) {
-			if (placePieceDéplacée >= 0) {
-				g2.fillRect(tabPieces.get(placePieceDéplacée).getX()*100, tabPieces.get(placePieceDéplacée).getY()*100, 101, 101);
+			if (placePieceDeplacee >= 0) {
+				g2.fillRect(tabPieces.get(placePieceDeplacee).getX()*100, tabPieces.get(placePieceDeplacee).getY()*100, 101, 101);
 			}
-			for (int i = 0; i < tabPieces.size(); i++) { // affichage des pièces en vie
+			for (int i = 0; i < tabPieces.size(); i++) { // affichage des piï¿½ces en vie
 				if (tabPieces.get(i).isEnVie()) {
-					if (!sourisPressée || i != placePieceDéplacée){
+					if (!sourisPressee || i != placePieceDeplacee){
 						g2.drawImage(tabPieces.get(i).getImgPiece(), tabPieces.get(i).getX()*100, tabPieces.get(i).getY()*100, null);
 					}
 				}
@@ -337,7 +337,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 	 			for (int x = 0; x <= 7; x++)  {
 					for (int y = 0; y <= 7; y++)  {
 						if (positionsPossibles[x][y] == 1) {
-							if (!sourisPressée || !(posSourisX == x && posSourisY == y)) {
+							if (!sourisPressee || !(posSourisX == x && posSourisY == y)) {
 								g2.fillOval(100*x + 30, 100*y + 30, 40, 40);
 							}
 						}
@@ -354,16 +354,16 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					g2.fillRect(xTransfo*100, yTransfo*100, 100, 100);
 				}
 			}
-			if (sourisPressée && placePieceDéplacée != -1) {
-				g2.drawImage(tabPieces.get(placePieceDéplacée).getImgPiece(), posSourisX*100, posSourisY*100, null);
+			if (sourisPressee && placePieceDeplacee != -1) {
+				g2.drawImage(tabPieces.get(placePieceDeplacee).getImgPiece(), posSourisX*100, posSourisY*100, null);
 			}
 		} else {
-			if (placePieceDéplacée >= 0) {
-				g2.fillRect(700-tabPieces.get(placePieceDéplacée).getX()*100, 700-tabPieces.get(placePieceDéplacée).getY()*100, 101, 101);
+			if (placePieceDeplacee >= 0) {
+				g2.fillRect(700-tabPieces.get(placePieceDeplacee).getX()*100, 700-tabPieces.get(placePieceDeplacee).getY()*100, 101, 101);
 			}
-			for (int i = 0; i < tabPieces.size(); i++) { // affichage des pièces en vie
+			for (int i = 0; i < tabPieces.size(); i++) { // affichage des piï¿½ces en vie
 				if (tabPieces.get(i).isEnVie()) {
-					if (!sourisPressée || i != placePieceDéplacée){
+					if (!sourisPressee || i != placePieceDeplacee){
 						g2.drawImage(tabPieces.get(i).getImgPiece(), 700-tabPieces.get(i).getX()*100, 700-tabPieces.get(i).getY()*100, null);
 					}
 				}
@@ -372,7 +372,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 				for (int x = 0; x <= 7; x++)  {
 					for (int y = 0; y <= 7; y++)  {
 						if (positionsPossibles[x][y] == 1) {
-							if (!sourisPressée || !(posSourisX == x && posSourisY == y)) {
+							if (!sourisPressee || !(posSourisX == x && posSourisY == y)) {
 								g2.fillOval(700-100*x + 30, 700-100*y + 30, 40, 40);
 							}
 						}
@@ -389,8 +389,8 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					g2.fillRect(700-xTransfo*100, 700-yTransfo*100, 100, 100);
 				}
 			}
-			if (sourisPressée && placePieceDéplacée != -1) {
-				g2.drawImage(tabPieces.get(placePieceDéplacée).getImgPiece(), 700-posSourisX*100, 700-posSourisY*100, null);
+			if (sourisPressee && placePieceDeplacee != -1) {
+				g2.drawImage(tabPieces.get(placePieceDeplacee).getImgPiece(), 700-posSourisX*100, 700-posSourisY*100, null);
 			}
 		}
 		
@@ -414,7 +414,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					//pion avance d'un case
 					tableau[x][y - 1] = 1;
 					
-					//si pion jamais déplacé
+					//si pion jamais dï¿½placï¿½
 					if (y == 6) {
 						if (matEchiquier[x][y - 2] == 0) {
 							tableau[x][y - 2] = 1;
@@ -422,7 +422,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					}
 				}
 			
-				//manger en diagonale à gauche
+				//manger en diagonale ï¿½ gauche
 				if (x >= 1) {
 					if (matEchiquier[x - 1][y - 1] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
@@ -433,7 +433,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 							}
 						}
 					}
-					//prise en passant à gauche
+					//prise en passant ï¿½ gauche
 					if (y == 3) {
 						if (matEchiquier[x - 1][y] == 1) {
 							for (int i = 0; i < tabPieces.size(); i++) {
@@ -447,7 +447,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 						}
 					}
 				}
-				//manger en diagonale à droite
+				//manger en diagonale ï¿½ droite
 				if (x <= 6) {
 					if (matEchiquier[x + 1][y - 1] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
@@ -458,7 +458,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 							}
 						}
 					}
-					//prise en passant à droite
+					//prise en passant ï¿½ droite
 					if (tabPieces.get(placePiece).getY() == 3) {
 						if (matEchiquier[x + 1][y] == 1) {
 							for (int i = 0; i < tabPieces.size(); i++) {
@@ -495,14 +495,14 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					//pion avance d'un case
 					tableau[x][y + 1] = 1;
 					
-					//si pion jamais déplacé
+					//si pion jamais dï¿½placï¿½
 					if (y == 1) {
 						if (matEchiquier[x][y + 2] == 0) {
 							tableau[x][y + 2] = 1;
 						}
 					}
 				}
-				//manger en diagonale à gauche
+				//manger en diagonale ï¿½ gauche
 				if (x >= 1) {
 					if (matEchiquier[x - 1][y + 1] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
@@ -513,7 +513,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 							}
 						}
 					}
-					//prise en passant à gauche
+					//prise en passant ï¿½ gauche
 					if (y == 4) {
 						if (matEchiquier[x - 1][y] == 1) {
 							for (int i = 0; i < tabPieces.size(); i++) {
@@ -527,7 +527,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 						}	
 					}
 				}
-				//manger en diagonale à droite
+				//manger en diagonale ï¿½ droite
 				if (x <= 6) {
 					if (matEchiquier[x + 1][y + 1] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
@@ -538,7 +538,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 							}
 						}
 					}
-					//prise en passant à droite
+					//prise en passant ï¿½ droite
 					if (y == 4) {
 						if (matEchiquier[x + 1][y] == 1) {
 							for (int i = 0; i < tabPieces.size(); i++) {
@@ -703,7 +703,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 	
 	public void mouvementFou(int tableau[][], int placePiece) {
 		
-		boolean bloqué = false;
+		boolean bloque = false;
 		boolean oui = true; //oui est utile pour la mise en echecs
 		int x = tabPieces.get(placePiece).getX();
 		int y = tabPieces.get(placePiece).getY();
@@ -715,13 +715,13 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 		}
 		
 		if (oui) {
-			//déplacement haut gauche
+			//dï¿½placement haut gauche
 			for (int j = 1; j <= 7; j++) {
-				if (x >= j && y >= j && !bloqué) {
+				if (x >= j && y >= j && !bloque) {
 					if (matEchiquier[x - j][y - j] == 0) {
 						tableau[x - j][y - j] = 1;
 					}
-					//possibilité de déplacer et bloque si piece de l'autre couleur en face
+					//possibilitï¿½ de dï¿½placer et bloque si piece de l'autre couleur en face
 					if (matEchiquier[x - j][y - j] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == x - j && tabPieces.get(i).getY() == y - j && 
@@ -729,20 +729,20 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								tableau[x - j][y - j] = 1;
 							}
 						}
-						bloqué = true;
+						bloque = true;
 					}
 				}
 			}
 			
-			bloqué = false;
+			bloque = false;
 			
-			//déplacement haut droite
+			//dï¿½placement haut droite
 			for (int j = 1; j <= 7; j++) {
-				if (x <= 7-j && y >= j && !bloqué) {
+				if (x <= 7-j && y >= j && !bloque) {
 					if (matEchiquier[x + j][y - j] == 0) {
 						tableau[x + j][y - j] = 1;
 					}
-					//possibilité de déplacer et bloque si piece de l'autre couleur en face
+					//possibilitï¿½ de dï¿½placer et bloque si piece de l'autre couleur en face
 					if (matEchiquier[x + j][y - j] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == x + j && tabPieces.get(i).getY() == y - j && 
@@ -750,21 +750,21 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								tableau[x + j][y - j] = 1;
 							}
 						}
-						bloqué = true;
+						bloque = true;
 					}
 					
 				}
 			}
 	
-			bloqué = false;
+			bloque = false;
 			
-			//déplacement bas gauche
+			//dï¿½placement bas gauche
 			for (int j = 1; j <= 7; j++) {
-				if (x >= j && y <= 7-j && !bloqué) {
+				if (x >= j && y <= 7-j && !bloque) {
 					if (matEchiquier[x - j][y + j] == 0) {
 						tableau[x - j][y + j] = 1;
 					}
-					//possibilité de déplacer et bloque si piece de l'autre couleur en face
+					//possibilitï¿½ de dï¿½placer et bloque si piece de l'autre couleur en face
 					if (matEchiquier[x - j][y + j] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == x - j && tabPieces.get(i).getY() == y + j && 
@@ -772,20 +772,20 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								tableau[x - j][y + j] = 1;
 							}
 						}
-						bloqué = true;
+						bloque = true;
 					}
 				}
 			}
 			
-			bloqué = false;
+			bloque = false;
 			
-			//déplacement bas droite
+			//dï¿½placement bas droite
 			for (int j = 1; j <= 7; j++) {
-				if (x <= 7-j && y <= 7-j && !bloqué) {
+				if (x <= 7-j && y <= 7-j && !bloque) {
 					if (matEchiquier[x + j][y + j] == 0) {
 						tableau[x + j][y + j] = 1;
 					}
-					//possibilité de déplacer et bloque si piece de l'autre couleur en face
+					//possibilitï¿½ de dï¿½placer et bloque si piece de l'autre couleur en face
 					if (matEchiquier[x + j][y + j] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == x + j && tabPieces.get(i).getY() == y + j && 
@@ -793,7 +793,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								tableau[x + j][y + j] = 1;
 							}
 						}
-						bloqué = true;
+						bloque = true;
 					}
 				}
 			}
@@ -803,7 +803,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 
 	public void mouvementTour(int tableau[][], int placePiece) {
 		
-		boolean bloqué = false;
+		boolean bloque = false;
 		boolean oui = true; //oui est utile pour la mise en echecs
 		int x = tabPieces.get(placePiece).getX();
 		int y = tabPieces.get(placePiece).getY();
@@ -815,13 +815,13 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 		}
 		
 		if (oui) {
-			//déplacement haut
+			//dï¿½placement haut
 			for (int j = 1; j <= 7; j++) {
-				if (y >= j && !bloqué) {
+				if (y >= j && !bloque) {
 					if (matEchiquier[x][y - j] == 0) {
 						tableau[x][y - j] = 1;
 					}
-					//possibilité de déplacer et bloque si piece de l'autre couleur en face
+					//possibilitï¿½ de dï¿½placer et bloque si piece de l'autre couleur en face
 					if (matEchiquier[x][y - j] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == x && tabPieces.get(i).getY() == y - j && 
@@ -829,20 +829,20 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								tableau[x][y - j] = 1;
 							}
 						}
-						bloqué = true;
+						bloque = true;
 					}
 				}
 			}
 			
-			bloqué = false;
+			bloque = false;
 			
-			//déplacement bas
+			//dï¿½placement bas
 			for (int j = 1; j <= 7; j++) {
-				if (y <= 7-j && !bloqué) {
+				if (y <= 7-j && !bloque) {
 					if (matEchiquier[x][y + j] == 0) {
 						tableau[x][y + j] = 1;
 					}
-					//possibilité de déplacer et bloque si piece de l'autre couleur en face
+					//possibilitï¿½ de dï¿½placer et bloque si piece de l'autre couleur en face
 					if (matEchiquier[x][y + j] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == x && tabPieces.get(i).getY() == y + j && 
@@ -850,20 +850,20 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								tableau[x][y + j] = 1;
 							}
 						}
-						bloqué = true;
+						bloque = true;
 					}
 				}
 			}
 			
-			bloqué = false;
+			bloque = false;
 			
-			//déplacement gauche
+			//dï¿½placement gauche
 			for (int j = 1; j <= 7; j++) {
-				if (x >= j && !bloqué) {
+				if (x >= j && !bloque) {
 					if (matEchiquier[x - j][y] == 0) {
 						tableau[x - j][y] = 1;
 					}
-					//possibilité de déplacer et bloque si piece de l'autre couleur en face
+					//possibilitï¿½ de dï¿½placer et bloque si piece de l'autre couleur en face
 					if (matEchiquier[x - j][y] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == x - j && tabPieces.get(i).getY() == y && 
@@ -871,20 +871,20 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								tableau[x - j][y] = 1;
 							}
 						}
-						bloqué = true;
+						bloque = true;
 					}
 				}
 			}
 			
-			bloqué = false;
+			bloque = false;
 			
-			//déplacement droite
+			//dï¿½placement droite
 			for (int j = 1; j <= 7; j++) {
-				if (x <= 7-j && !bloqué) {
+				if (x <= 7-j && !bloque) {
 					if (matEchiquier[x + j][y] == 0) {
 						tableau[x + j][y] = 1;
 					}
-					//possibilité de déplacer et bloque si piece de l'autre couleur en face
+					//possibilitï¿½ de dï¿½placer et bloque si piece de l'autre couleur en face
 					if (matEchiquier[x + j][y] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == x + j && tabPieces.get(i).getY() == y && 
@@ -892,7 +892,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								tableau[x + j][y] = 1;
 							}
 						}
-						bloqué = true;
+						bloque = true;
 					}
 				}
 			}
@@ -1057,45 +1057,45 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 		
 	}
 	
-	public void enleverPossibilités() {
+	public void enleverPossibilites() {
 		
-		int memoireX = tabPieces.get(placePieceDéplacée).getX();
-		int memoireY = tabPieces.get(placePieceDéplacée).getY();
+		int memoireX = tabPieces.get(placePieceDeplacee).getX();
+		int memoireY = tabPieces.get(placePieceDeplacee).getY();
 		matEchiquier[memoireX][memoireY] = 0;
 		
 		for (int x = 0; x <= 7; x++) {
 			for (int y = 0; y <= 7; y++) {
 				if (positionsPossibles[x][y] == 1) {
-					tabPieces.get(placePieceDéplacée).setX(x);
-					tabPieces.get(placePieceDéplacée).setY(y);
+					tabPieces.get(placePieceDeplacee).setX(x);
+					tabPieces.get(placePieceDeplacee).setY(y);
 					boolean echec = false;
-					boolean verif = false; // buggé sur les cases ou la piece mange
+					boolean verif = false; // buggï¿½ sur les cases ou la piece mange
 					if (matEchiquier[x][y] == 0) {
 						verif = true;
 					}
 					matEchiquier[x][y] = 1;
 					
-					int possibilités[][] = new int [8][8];
-					if (tabPieces.get(placePieceDéplacée).isBlanc()) {
+					int possibilites[][] = new int [8][8];
+					if (tabPieces.get(placePieceDeplacee).isBlanc()) {
 						for (int i = 0; i < tabPieces.size(); i++)  {
 							if (!tabPieces.get(i).isBlanc() && tabPieces.get(i).isEnVie()) {
 								//mouvement pions
-								if (tabPieces.get(i).getType() == 5) { mouvementPionNoir(possibilités, i); }
+								if (tabPieces.get(i).getType() == 5) { mouvementPionNoir(possibilites, i); }
 								//mouvements cavaliers
-								if (tabPieces.get(i).getType() == 4) { mouvementCavalier(possibilités, i); }
+								if (tabPieces.get(i).getType() == 4) { mouvementCavalier(possibilites, i); }
 								//mouvements fous
-								if (tabPieces.get(i).getType() == 3) { mouvementFou(possibilités, i); }
+								if (tabPieces.get(i).getType() == 3) { mouvementFou(possibilites, i); }
 								//mouvements tours
-								if (tabPieces.get(i).getType() == 2) { mouvementTour(possibilités, i); }
+								if (tabPieces.get(i).getType() == 2) { mouvementTour(possibilites, i); }
 								//mouvement dames
-								if (tabPieces.get(i).getType() == 1) { mouvementTour(possibilités, i); mouvementFou(possibilités, i); }
+								if (tabPieces.get(i).getType() == 1) { mouvementTour(possibilites, i); mouvementFou(possibilites, i); }
 								//mouvement rois
-								if (tabPieces.get(i).getType() == 0) { mouvementRoi(possibilités, i); }
+								if (tabPieces.get(i).getType() == 0) { mouvementRoi(possibilites, i); }
 							}
 						}
 						for (int i = 0; i < tabPieces.size(); i++)  {
 							if (tabPieces.get(i).isBlanc() && tabPieces.get(i).getType() == 0) {
-								if (possibilités[tabPieces.get(i).getX()][tabPieces.get(i).getY()] == 1) {
+								if (possibilites[tabPieces.get(i).getX()][tabPieces.get(i).getY()] == 1) {
 									echec = true;
 								}
 							}
@@ -1104,22 +1104,22 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 						for (int i = 0; i < tabPieces.size(); i++)  {
 							if (tabPieces.get(i).isBlanc() && tabPieces.get(i).isEnVie()) {
 								//mouvement pions
-								if (tabPieces.get(i).getType() == 5) { mouvementPionBlanc(possibilités, i); }
+								if (tabPieces.get(i).getType() == 5) { mouvementPionBlanc(possibilites, i); }
 								//mouvements cavaliers
-								if (tabPieces.get(i).getType() == 4) { mouvementCavalier(possibilités, i); }
+								if (tabPieces.get(i).getType() == 4) { mouvementCavalier(possibilites, i); }
 								//mouvements fous
-								if (tabPieces.get(i).getType() == 3) { mouvementFou(possibilités, i); }
+								if (tabPieces.get(i).getType() == 3) { mouvementFou(possibilites, i); }
 								//mouvements tours
-								if (tabPieces.get(i).getType() == 2) { mouvementTour(possibilités, i); }
+								if (tabPieces.get(i).getType() == 2) { mouvementTour(possibilites, i); }
 								//mouvement dames
-								if (tabPieces.get(i).getType() == 1) { mouvementTour(possibilités, i); mouvementFou(possibilités, i); }
+								if (tabPieces.get(i).getType() == 1) { mouvementTour(possibilites, i); mouvementFou(possibilites, i); }
 								//mouvement rois
-								if (tabPieces.get(i).getType() == 0) { mouvementRoi(possibilités, i); }
+								if (tabPieces.get(i).getType() == 0) { mouvementRoi(possibilites, i); }
 							}
 						}
 						for (int i = 0; i < tabPieces.size(); i++)  {
 							if (!tabPieces.get(i).isBlanc() && tabPieces.get(i).getType() == 0) {
-								if (possibilités[tabPieces.get(i).getX()][tabPieces.get(i).getY()] == 1) {
+								if (possibilites[tabPieces.get(i).getX()][tabPieces.get(i).getY()] == 1) {
 									echec = true;
 								}
 							}
@@ -1136,8 +1136,8 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 		}
 		
 		matEchiquier[memoireX][memoireY] = 1;
-		tabPieces.get(placePieceDéplacée).setX(memoireX);
-		tabPieces.get(placePieceDéplacée).setY(memoireY);
+		tabPieces.get(placePieceDeplacee).setX(memoireX);
+		tabPieces.get(placePieceDeplacee).setY(memoireY);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -1344,7 +1344,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 		
 		if (SwingUtilities.isLeftMouseButton(e) && sourisSurEchiquier) {
 			
-			sourisPressée = true;
+			sourisPressee = true;
 			
 			if (!transfoPion) {
 				//deplacement piece
@@ -1352,17 +1352,17 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					for (int y = 0; y <= 7; y++)  {
 						if (positionsPossibles[x][y] == 1 && x == posSourisX && y == posSourisY) {
 							
-							//enregistrement des positions des pièces
+							//enregistrement des positions des piï¿½ces
 							for (int i = 0; i < tabPieces.size(); i++)  {
 								tabPieces.get(i).setAncienX(tabPieces.get(i).getX());
 								tabPieces.get(i).setAncienY(tabPieces.get(i).getY());
 							}
 							
-							//mange une pièce
+							//mange une piï¿½ce
 							if (matEchiquier[x][y] == 1) {
 								for (int i = 0; i < tabPieces.size(); i++)  {
 										if (tabPieces.get(i).getX() == x && tabPieces.get(i).getY() == y && 
-												tabPieces.get(i).isBlanc() != tabPieces.get(placePieceDéplacée).isBlanc()) {
+												tabPieces.get(i).isBlanc() != tabPieces.get(placePieceDeplacee).isBlanc()) {
 											tabPieces.get(i).setEnVie(false);
 									}
 								}
@@ -1373,13 +1373,13 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								for (int j = 0; j < tabPieces.size(); j++ ) {
 									//des blancs
 									if (tabPieces.get(j).getX() == x && tabPieces.get(j).getY() == y + 1 && !tabPieces.get(j).isBlanc() &&
-											tabPieces.get(placePieceDéplacée).getType() == 5 && tabPieces.get(placePieceDéplacée).isBlanc()) {
+											tabPieces.get(placePieceDeplacee).getType() == 5 && tabPieces.get(placePieceDeplacee).isBlanc()) {
 										tabPieces.get(j).setEnVie(false);
 										matEchiquier[x][y+1] = 0;
 									}
 									//des noirs
 									if (tabPieces.get(j).getX() == x && tabPieces.get(j).getY() == y - 1 && tabPieces.get(j).isBlanc() &&
-											tabPieces.get(placePieceDéplacée).getType() == 5 && !tabPieces.get(placePieceDéplacée).isBlanc()) {
+											tabPieces.get(placePieceDeplacee).getType() == 5 && !tabPieces.get(placePieceDeplacee).isBlanc()) {
 										tabPieces.get(j).setEnVie(false);
 										matEchiquier[x][y-1] = 0;
 									}
@@ -1387,10 +1387,10 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 							}
 							
 							//roques
-							if (matEchiquier[x][y] == 0 && tabPieces.get(placePieceDéplacée).getType() == 0) {
+							if (matEchiquier[x][y] == 0 && tabPieces.get(placePieceDeplacee).getType() == 0) {
 								for (int j = 0; j < tabPieces.size(); j++ ) {
 									//petit roque
-									if (tabPieces.get(j).getX() == 7 && tabPieces.get(j).getY() == tabPieces.get(placePieceDéplacée).getY() &&
+									if (tabPieces.get(j).getX() == 7 && tabPieces.get(j).getY() == tabPieces.get(placePieceDeplacee).getY() &&
 										tabPieces.get(j).getType() == 2 &&
 										x == 6 ) {
 										tabPieces.get(j).setX(5);
@@ -1401,7 +1401,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 										tabPieces.get(j).setDernierMouvement(0);
 									}
 									//grand roque
-									if (tabPieces.get(j).getX() == 0 && tabPieces.get(j).getY() == tabPieces.get(placePieceDéplacée).getY() &&
+									if (tabPieces.get(j).getX() == 0 && tabPieces.get(j).getY() == tabPieces.get(placePieceDeplacee).getY() &&
 										tabPieces.get(j).getType() == 2 &&
 										x == 2) {
 										tabPieces.get(j).setX(3);
@@ -1416,12 +1416,12 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 							}
 							
 							//deplacement de la piece
-							matEchiquier[tabPieces.get(placePieceDéplacée).getX()][tabPieces.get(placePieceDéplacée).getY()] = 0;
-							tabPieces.get(placePieceDéplacée).setX(x);
-							tabPieces.get(placePieceDéplacée).setY(y);
-							tabPieces.get(placePieceDéplacée).setDernierMouvement(0);
+							matEchiquier[tabPieces.get(placePieceDeplacee).getX()][tabPieces.get(placePieceDeplacee).getY()] = 0;
+							tabPieces.get(placePieceDeplacee).setX(x);
+							tabPieces.get(placePieceDeplacee).setY(y);
+							tabPieces.get(placePieceDeplacee).setDernierMouvement(0);
 							matEchiquier[x][y] = 1;
-							pieceDéplacée = true;
+							pieceDeplacee = true;
 							
 							//transformation des pions
 							for (int i = 0; i < tabPieces.size(); i++)  {
@@ -1464,8 +1464,8 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								}
 							}
 							
-							//augmente de 1 pour toutes les pieces le nombre de tours depuis lequel elles n'ont pas joué
-							//utlisé pour la prise en passant et les roques
+							//augmente de 1 pour toutes les pieces le nombre de tours depuis lequel elles n'ont pas jouï¿½
+							//utlisï¿½ pour la prise en passant et les roques
 							for (int i = 0; i < tabPieces.size(); i++)  {
 								tabPieces.get(i).setDernierMouvement(tabPieces.get(i).getDernierMouvement() + 1);
 							}
@@ -1499,37 +1499,37 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					}
 				}
 				
-				boolean trouvé = false; // permet de griser la case selectionnée
+				boolean trouve = false; // permet de griser la case selectionnï¿½e
 				
-				if (!pieceDéplacée) {
+				if (!pieceDeplacee) {
 					if (matEchiquier[posSourisX][posSourisY] == 1) {
 						for (int i = 0; i < tabPieces.size(); i++) {
 							if (tabPieces.get(i).getX() == posSourisX && tabPieces.get(i).getY() == posSourisY ) {
-								trouvé = true;
+								trouve = true;
 								if (tabPieces.get(i).isEnVie()) {
-									placePieceDéplacée = i;
-									if ((nbCoups%2 != 0 && !tabPieces.get(placePieceDéplacée).isBlanc()) || 
-											(nbCoups%2 == 0 && tabPieces.get(placePieceDéplacée).isBlanc())) {
+									placePieceDeplacee = i;
+									if ((nbCoups%2 != 0 && !tabPieces.get(placePieceDeplacee).isBlanc()) || 
+											(nbCoups%2 == 0 && tabPieces.get(placePieceDeplacee).isBlanc())) {
 										//mouvement pions blancs
 										if (tabPieces.get(i).isBlanc()) {
-											if (tabPieces.get(i).getType() == 5) { mouvementPionBlanc(positionsPossibles, placePieceDéplacée); }
+											if (tabPieces.get(i).getType() == 5) { mouvementPionBlanc(positionsPossibles, placePieceDeplacee); }
 										}
 										//mouvement pions noirs
 										else {
-											if (tabPieces.get(i).getType() == 5) { mouvementPionNoir(positionsPossibles, placePieceDéplacée); }
+											if (tabPieces.get(i).getType() == 5) { mouvementPionNoir(positionsPossibles, placePieceDeplacee); }
 										}
 										//mouvements cavaliers
-										if (tabPieces.get(i).getType() == 4) { mouvementCavalier(positionsPossibles, placePieceDéplacée); }
+										if (tabPieces.get(i).getType() == 4) { mouvementCavalier(positionsPossibles, placePieceDeplacee); }
 										//mouvements fous
-										if (tabPieces.get(i).getType() == 3) { mouvementFou(positionsPossibles, placePieceDéplacée); }
+										if (tabPieces.get(i).getType() == 3) { mouvementFou(positionsPossibles, placePieceDeplacee); }
 										//mouvements tours
-										if (tabPieces.get(i).getType() == 2) { mouvementTour(positionsPossibles, placePieceDéplacée); }
+										if (tabPieces.get(i).getType() == 2) { mouvementTour(positionsPossibles, placePieceDeplacee); }
 										//mouvement dames
 										if (tabPieces.get(i).getType() == 1) {
-											mouvementTour(positionsPossibles, placePieceDéplacée);
-											mouvementFou(positionsPossibles, placePieceDéplacée); }
+											mouvementTour(positionsPossibles, placePieceDeplacee);
+											mouvementFou(positionsPossibles, placePieceDeplacee); }
 										//mouvement rois
-										if (tabPieces.get(i).getType() == 0) { mouvementRoi(positionsPossibles, placePieceDéplacée); }
+										if (tabPieces.get(i).getType() == 0) { mouvementRoi(positionsPossibles, placePieceDeplacee); }
 									}
 								}
 							}
@@ -1537,19 +1537,19 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					}
 				}
 				
-				if (placePieceDéplacée != -1) { enleverPossibilités(); } // enleve les cases qui mettent le roi en echec
+				if (placePieceDeplacee != -1) { enleverPossibilites(); } // enleve les cases qui mettent le roi en echec
 				
-				//vérification de l'échec --------------------------------------------------------------------------------------------------------------------------
+				//vï¿½rification de l'ï¿½chec --------------------------------------------------------------------------------------------------------------------------
 				
 				for (int x = 0; x <= 7; x++)  {
 					for (int y = 0; y <= 7; y++)  {
-						if (positionsPossibles[x][y] == 1) { trouvé = true; }
+						if (positionsPossibles[x][y] == 1) { trouve = true; }
 					}
 				}
 				
-				if (!trouvé) { placePieceDéplacée = -1; }
+				if (!trouve) { placePieceDeplacee = -1; }
 				
-				pieceDéplacée = false;
+				pieceDeplacee = false;
 			}
 			
 			repaint();
@@ -1580,10 +1580,10 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 	
 	public void mouseReleased(MouseEvent e) { 
 		
-		sourisPressée =  false;
+		sourisPressee =  false;
 		
 		if (SwingUtilities.isLeftMouseButton(e)) {
-			if (placePieceDéplacée != -1 && (posSourisX != tabPieces.get(placePieceDéplacée).getX() || posSourisY != tabPieces.get(placePieceDéplacée).getY())) {
+			if (placePieceDeplacee != -1 && (posSourisX != tabPieces.get(placePieceDeplacee).getX() || posSourisY != tabPieces.get(placePieceDeplacee).getY())) {
 			
 			if (!transfoPion) {
 				//deplacement piece
@@ -1591,17 +1591,17 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					for (int y = 0; y <= 7; y++)  {
 						if (positionsPossibles[x][y] == 1 && x == posSourisX && y == posSourisY) {
 							
-							//enregistrement des positions des pièces
+							//enregistrement des positions des piï¿½ces
 							for (int i = 0; i < tabPieces.size(); i++)  {
 								tabPieces.get(i).setAncienX(tabPieces.get(i).getX());
 								tabPieces.get(i).setAncienY(tabPieces.get(i).getY());
 							}
 							
-							//mange une pièce
+							//mange une piï¿½ce
 							if (matEchiquier[x][y] == 1) {
 								for (int i = 0; i < tabPieces.size(); i++)  {
 										if (tabPieces.get(i).getX() == x && tabPieces.get(i).getY() == y && 
-												tabPieces.get(i).isBlanc() != tabPieces.get(placePieceDéplacée).isBlanc()) {
+												tabPieces.get(i).isBlanc() != tabPieces.get(placePieceDeplacee).isBlanc()) {
 											tabPieces.get(i).setEnVie(false);
 									}
 								}
@@ -1612,13 +1612,13 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								for (int j = 0; j < tabPieces.size(); j++ ) {
 									//des blancs
 									if (tabPieces.get(j).getX() == x && tabPieces.get(j).getY() == y + 1 && !tabPieces.get(j).isBlanc() &&
-											tabPieces.get(placePieceDéplacée).getType() == 5 && tabPieces.get(placePieceDéplacée).isBlanc()) {
+											tabPieces.get(placePieceDeplacee).getType() == 5 && tabPieces.get(placePieceDeplacee).isBlanc()) {
 										tabPieces.get(j).setEnVie(false);
 										matEchiquier[x][y+1] = 0;
 									}
 									//des noirs
 									if (tabPieces.get(j).getX() == x && tabPieces.get(j).getY() == y - 1 && tabPieces.get(j).isBlanc() &&
-											tabPieces.get(placePieceDéplacée).getType() == 5 && !tabPieces.get(placePieceDéplacée).isBlanc()) {
+											tabPieces.get(placePieceDeplacee).getType() == 5 && !tabPieces.get(placePieceDeplacee).isBlanc()) {
 										tabPieces.get(j).setEnVie(false);
 										matEchiquier[x][y-1] = 0;
 									}
@@ -1626,10 +1626,10 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 							}
 							
 							//roques
-							if (matEchiquier[x][y] == 0 && tabPieces.get(placePieceDéplacée).getType() == 0) {
+							if (matEchiquier[x][y] == 0 && tabPieces.get(placePieceDeplacee).getType() == 0) {
 								for (int j = 0; j < tabPieces.size(); j++ ) {
 									//petit roque
-									if (tabPieces.get(j).getX() == 7 && tabPieces.get(j).getY() == tabPieces.get(placePieceDéplacée).getY() &&
+									if (tabPieces.get(j).getX() == 7 && tabPieces.get(j).getY() == tabPieces.get(placePieceDeplacee).getY() &&
 										tabPieces.get(j).getType() == 2 &&
 										x == 6 ) {
 										tabPieces.get(j).setX(5);
@@ -1640,7 +1640,7 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 										tabPieces.get(j).setDernierMouvement(0);
 									}
 									//grand roque
-									if (tabPieces.get(j).getX() == 0 && tabPieces.get(j).getY() == tabPieces.get(placePieceDéplacée).getY() &&
+									if (tabPieces.get(j).getX() == 0 && tabPieces.get(j).getY() == tabPieces.get(placePieceDeplacee).getY() &&
 										tabPieces.get(j).getType() == 2 &&
 										x == 2) {
 										tabPieces.get(j).setX(3);
@@ -1655,12 +1655,12 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 							}
 							
 							//deplacement de la piece
-							matEchiquier[tabPieces.get(placePieceDéplacée).getX()][tabPieces.get(placePieceDéplacée).getY()] = 0;
-							tabPieces.get(placePieceDéplacée).setX(x);
-							tabPieces.get(placePieceDéplacée).setY(y);
-							tabPieces.get(placePieceDéplacée).setDernierMouvement(0);
+							matEchiquier[tabPieces.get(placePieceDeplacee).getX()][tabPieces.get(placePieceDeplacee).getY()] = 0;
+							tabPieces.get(placePieceDeplacee).setX(x);
+							tabPieces.get(placePieceDeplacee).setY(y);
+							tabPieces.get(placePieceDeplacee).setDernierMouvement(0);
 							matEchiquier[x][y] = 1;
-							pieceDéplacée = true;
+							pieceDeplacee = true;
 							
 							//transformation des pions
 							for (int i = 0; i < tabPieces.size(); i++)  {
@@ -1703,8 +1703,8 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 								}
 							}
 							
-							//augmente de 1 pour toutes les pieces le nombre de tours depuis lequel elles n'ont pas joué
-							//utlisé pour la prise en passant et les roques
+							//augmente de 1 pour toutes les pieces le nombre de tours depuis lequel elles n'ont pas jouï¿½
+							//utlisï¿½ pour la prise en passant et les roques
 							for (int i = 0; i < tabPieces.size(); i++)  {
 								tabPieces.get(i).setDernierMouvement(tabPieces.get(i).getDernierMouvement() + 1);
 							}
@@ -1736,17 +1736,17 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 					}
 				}
 				
-				boolean trouvé = false; // permet de griser la case selectionnée
+				boolean trouve = false; // permet de griser la case selectionnï¿½e
 				
 				for (int x = 0; x <= 7; x++)  {
 					for (int y = 0; y <= 7; y++)  {
-						if (positionsPossibles[x][y] == 1) { trouvé = true; }
+						if (positionsPossibles[x][y] == 1) { trouve = true; }
 					}
 				}
 				
-				if (!trouvé) { placePieceDéplacée = -1; }
+				if (!trouve) { placePieceDeplacee = -1; }
 				
-				pieceDéplacée = false;
+				pieceDeplacee = false;
 			}	
 			
 			
@@ -1765,6 +1765,6 @@ public class Scene extends JPanel implements MouseListener, ActionListener {
 		}
 	}
 	
-	public void mouseClicked(MouseEvent e) { } //nul celui-là
+	public void mouseClicked(MouseEvent e) { } //nul celui-lï¿½
 
 }
